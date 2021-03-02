@@ -99,7 +99,7 @@ MIDDLEWARE = [
 ]
 
 LOGOUT_REDIRECT_URL = '/login/'
-ROOT_URLCONF = 'ecommerce.urls'
+ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [
     {
@@ -117,7 +117,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'ecommerce.wsgi.application'
+WSGI_APPLICATION = 'project.wsgi.application'
 
 
 # Database
@@ -184,7 +184,7 @@ PROTECTED_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "protecte
 
 
 
-from ecommerce.aws.conf import *
+from project.aws.conf import *
 
 
 CORS_REPLACE_HTTPS_REFERER      = False
