@@ -5,7 +5,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, DetailView, View
 from django.shortcuts import render, get_object_or_404, redirect
 
-from analytics.mixins import ObjectViewedMixin
+# from analytics.mixins import ObjectViewedMixin
 
 from carts.models import Cart
 
@@ -20,9 +20,9 @@ class ProductFeaturedListView(ListView):
         return Product.objects.all().featured()
 
 
-class ProductFeaturedDetailView(ObjectViewedMixin, DetailView):
-    queryset = Product.objects.all().featured()
-    template_name = "products/featured-detail.html"
+# class ProductFeaturedDetailView(ObjectViewedMixin, DetailView):
+#     queryset = Product.objects.all().featured()
+#     template_name = "products/featured-detail.html"
 
     # def get_queryset(self, *args, **kwargs):
     #     request = self.request
@@ -72,7 +72,7 @@ def product_list_view(request):
 
 
 
-class ProductDetailSlugView(ObjectViewedMixin, DetailView):
+class ProductDetailSlugView( DetailView):
     queryset = Product.objects.all()
     template_name = "products/detail.html"
 
@@ -155,28 +155,28 @@ from orders.models import *
 
 
 
-class ProductDetailView(ObjectViewedMixin, DetailView):
-    #queryset = Product.objects.all()
-    template_name = "products/detail.html"
+# class ProductDetailView(ObjectViewedMixin, DetailView):
+#     #queryset = Product.objects.all()
+#     template_name = "products/detail.html"
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(ProductDetailView, self).get_context_data(*args, **kwargs)
-        print(context)
-        # context['abc'] = 123
-        return context
+#     def get_context_data(self, *args, **kwargs):
+#         context = super(ProductDetailView, self).get_context_data(*args, **kwargs)
+#         print(context)
+#         # context['abc'] = 123
+#         return context
 
-    def get_object(self, *args, **kwargs):
-        request = self.request
-        pk = self.kwargs.get('pk')
-        instance = Product.objects.get_by_id(pk)
-        if instance is None:
-            raise Http404("Product doesn't exist")
-        return instance
+#     def get_object(self, *args, **kwargs):
+#         request = self.request
+#         pk = self.kwargs.get('pk')
+#         instance = Product.objects.get_by_id(pk)
+#         if instance is None:
+#             raise Http404("Product doesn't exist")
+#         return instance
 
-    # def get_queryset(self, *args, **kwargs):
-    #     request = self.request
-    #     pk = self.kwargs.get('pk')
-    #     return Product.objects.filter(pk=pk)
+#     # def get_queryset(self, *args, **kwargs):
+#     #     request = self.request
+#     #     pk = self.kwargs.get('pk')
+#     #     return Product.objects.filter(pk=pk)
 
 
 def product_detail_view(request, pk=None, *args, **kwargs):

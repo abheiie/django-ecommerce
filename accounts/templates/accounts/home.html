@@ -56,10 +56,14 @@
       <div class="card-body">
         <h4 class="card-title">Preferences</h4> 
             <div class='list-group'>
+              <a class='list-group-item' href='{% url "orders:list" %}'>Orders</a>
+              <a class='list-group-item' href='{% url "billing-payment-method" %}'>Payment Methods</a>
+
+
 
               {% comment %}
-              <a class='list-group-item' href='{% url "marketing-pref" %}'>Email Marketing</a>
-
+              <a class='list-group-item' href='{% url "billing-payment-method" %}'>Payment Methods</a>
+              <a class='list-group-item' href='{% url "addresses" %}'>Addresses</a>
             {% endcomment %}
 
                 
@@ -69,17 +73,18 @@
     </div>
 </div>
 
-
+{% comment %}
 <div class='col-12 col-md-3 my-3'>
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">History</h4> 
-              <div class='list-group'>
-                <a class='list-group-item' href='{% url "account:user-product-history" %}'>Products</a>
-            </div>
-      </div>
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">History</h4> 
+            <div class='list-group'>
+              <a class='list-group-item' href='{% url "account:user-product-history" %}'>Products</a>
+          </div>
     </div>
-</div>
+  </div>
+</div>{% endcomment %}
+
 
 
 </div>

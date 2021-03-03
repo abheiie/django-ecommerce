@@ -5,6 +5,7 @@ from .views import (
         OrderDetailView,
         VerifyOwnership
         )
+
 app_name = "orders"
 
 urlpatterns = [
