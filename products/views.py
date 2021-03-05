@@ -19,6 +19,19 @@ class ProductFeaturedListView(ListView):
         request = self.request
         return Product.objects.all().featured()
 
+def product_category(request, category):
+    product_by_category_qs = Product.objects.filter(category__name = category)
+
+    context = {
+        "object_list" : product_by_category_qs
+    }
+
+    
+
+    return render(request, "products/category_list.html", context)
+
+
+
 
 # class ProductFeaturedDetailView(ObjectViewedMixin, DetailView):
 #     queryset = Product.objects.all().featured()

@@ -59,8 +59,20 @@ class ProductManager(models.Manager):
     def search(self, query):
         return self.get_queryset().active().search(query)
 
+class ProductCategories(models.Model):
+    name        = models.CharField(max_length=120)
+    timestamp   = models.DateTimeField(auto_now_add=True)
+    active      = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
+
+
 
 class Product(models.Model):
+    category        = models.ForeignKey(ProductCategories, on_delete=models.CASCADE, null=True)
+    sku             = models.CharField(max_length=120)
     title           = models.CharField(max_length=120)
     slug            = models.SlugField(blank=True, unique=True)
     description     = models.TextField()
@@ -69,7 +81,8 @@ class Product(models.Model):
     featured        = models.BooleanField(default=False)
     active          = models.BooleanField(default=True)
     timestamp       = models.DateTimeField(auto_now_add=True)
-    is_digital      = models.BooleanField(default=False) # User Library
+    is_digital      = models.BooleanField(default=False)
+    
 
 
     objects = ProductManager()
