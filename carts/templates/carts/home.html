@@ -2,9 +2,17 @@
 
 
 {% block content %}
-<h1>Cart</h1>
+
 
 {% if cart.products.exists %}
+
+<div class="card">
+  <div class="card-body">
+
+
+<h1>Cart</h1>
+
+
 <table class="table cart-table">
   <thead>
     <tr>
@@ -33,7 +41,7 @@
     </tr>
     <tr>
       <td colspan="2"></td>
-      <td><a class='btn btn-lg btn-success' href='{% url "cart:checkout" %}'>Checkout</a></td>
+      <td><a class='btn btn-lg btn-dark' href='{% url "cart:checkout" %}'>Checkout</a></td>
     </tr>
 
   </tbody>
@@ -47,6 +55,10 @@
 {% else %}
 <p class='lead'>Cart is empty</p>
 {% endif %}
+
+
+</div>
+</div>
 
 
 {% endblock %}

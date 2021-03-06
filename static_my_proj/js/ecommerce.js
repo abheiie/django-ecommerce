@@ -121,9 +121,9 @@ $(document).ready(function(){
         success: function(data){
           var submitSpan = thisForm.find(".submit-span")
           if (data.added){
-            submitSpan.html("In cart <button type='submit' class='btn btn-link'>Remove?</button>")
+            submitSpan.html("<button type='submit' class='btn btn-dark btn-sm btn-block'>Remove</button>")
           } else {
-            submitSpan.html("<button type='submit'  class='btn btn-success'>Add to cart</button>")
+            submitSpan.html("<button type='submit'  class='btn btn-dark btn-sm btn-block'>Add to cart</button>")
            }
           var navbarCount = $(".navbar-cart-count")
           navbarCount.text(data.cartItemCount)

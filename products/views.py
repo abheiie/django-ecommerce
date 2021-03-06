@@ -19,6 +19,8 @@ class ProductFeaturedListView(ListView):
         request = self.request
         return Product.objects.all().featured()
 
+
+
 def product_category(request, category):
     product_by_category_qs = Product.objects.filter(category__name = category)
 
@@ -26,9 +28,34 @@ def product_category(request, category):
         "object_list" : product_by_category_qs
     }
 
-    
-
     return render(request, "products/category_list.html", context)
+
+class ProductCategoryListView(ListView):
+    template_name = "products/category_list.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProductCategoryListView, self).get_context_data(*args, **kwargs)
+        cart_obj, new_obj = Cart.objects.new_or_get(self.request)
+
+        category_laptop = Product.objects.filter(category__name = "laptop")
+        category_mobile = Product.objects.filter(category__name = "mobile")
+        category_tablet = Product.objects.filter(category__name = "tablet")
+        category_television = Product.objects.filter(category__name = "television")
+        category_watch = Product.objects.filter(category__name = "watch")
+        category_earphone = Product.objects.filter(category__name = "earphone")
+
+
+        context['cart'] = cart_obj
+        context['category_laptop'] = category_laptop
+        
+
+        return context
+
+    def get_queryset(self, *args, **kwargs):
+        request = self.request
+        
+        category = self.kwargs.get('category')
+        return Product.objects.filter(category__name = category)
 
 
 

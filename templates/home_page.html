@@ -8,26 +8,119 @@
 {% endblock %}
 
 {% block content %}
-<div class='text-center'>
-    <h1>{{ title }}</h1>
-    <h1>Hello, world we're working!</h1>
-</div>
-
-<div class='row'>
-  <div class='col'>
-      <img src="{% static 'img/beach.jpg' %}" class='img-fluid' />
-      <p>{{ content }}</p>
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron" style="background-color: #343A40;">
+  <div class="container">
+    <h1 class="display-3">Electro</h1>
+    <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+    <!-- <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p> -->
   </div>
 </div>
-{% if request.user.is_authenticated %}
-<div class='row'>
-  <div class='col'>
-  <h1>Premium</h1>
-  {{ premium_content }}
+
+<div class="row" style=" margin-top: 40px; margin-bottom: -14px;">
+  <div class="container">
+    <button type="button" class=" text-left btn btn-dark btn-block btn-sm">Laptops</button>
   </div>
 </div>
-{% endif %}
 
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  {% for laptop in category_laptop %}
+  {% include 'products/snippets/card.html' with instance=laptop %}  
+  {% endfor %}
+  <div class="col">
+    <a href="/products/category/laptop/">
+      <button type="button" class="btn btn-outline-secondary" style="color: #343A40; margin-top: 150px;">Show More >></button>
+    </a>
+  </div>
+</div>
+
+<div class="row" style=" margin-top: 40px; margin-bottom: -14px;">
+  <div class="container">
+    <button type="button" class=" text-left btn btn-dark btn-block btn-sm">Mobiles</button>
+  </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4" style="margin-top: 0px;">
+  {% for mobile in category_mobile %}
+  {% include 'products/snippets/card.html' with instance=mobile %}  
+  {% endfor %}
+  <div class="col">
+    <a href="/products/category/mobile/">
+      <button type="button" class="btn btn-outline-secondary" style="color: #343A40; margin-top: 150px;">Show More >></button>
+    </a>  
+  </div>
+</div>
+
+<div class="row" style=" margin-top: 40px; margin-bottom: -14px;">
+  <div class="container">
+    <button type="button" class=" text-left btn btn-dark btn-block btn-sm">Tablets</button>
+  </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4" style="margin-top: 0px;">
+  {% for tablet in category_tablet %}
+  {% include 'products/snippets/card.html' with instance=tablet %}  
+  {% endfor %}
+  <div class="col">
+    <a href="/products/category/tablet/">
+      <button type="button" class="btn btn-outline-secondary" style="color: #343A40; margin-top: 150px;">Show More >></button>
+    </a>
+  </div>
+</div>
+
+
+<div class="row" style=" margin-top: 40px; margin-bottom: -14px;">
+  <div class="container">
+    <button type="button" class=" text-left btn btn-dark btn-block btn-sm">Televisions</button>
+  </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4" style="margin-top: 0px;">
+  {% for television in category_television %}
+  {% include 'products/snippets/card.html' with instance=television %}  
+  {% endfor %}
+  <div class="col">
+    <a href="/products/category/television/">
+      <button type="button" class="btn btn-outline-secondary" style="color: #343A40; margin-top: 150px;">Show More >></button>
+    </a>
+  </div>
+</div>
+
+
+<div class="row" style=" margin-top: 40px; margin-bottom: -14px;">
+  <div class="container">
+    <button type="button" class=" text-left btn btn-dark btn-block btn-sm">Watches</button>
+  </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4" style="margin-top: 0px;">
+  {% for watch in category_watch %}
+  {% include 'products/snippets/card.html' with instance=watch %}  
+  {% endfor %}
+  <div class="col">
+    <a href="/products/category/watch/">
+      <button type="button" class="btn btn-outline-secondary" style="color: #343A40; margin-top: 150px;">Show More >></button>
+    </a>
+  </div>
+</div>
+
+
+<div class="row" style=" margin-top: 40px; margin-bottom: -14px;">
+  <div class="container">
+    <button type="button" class=" text-left btn btn-dark btn-block btn-sm">Earphones</button>
+  </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4" style="margin-top: 0px;">
+  {% for earphone in category_earphone %}
+  {% include 'products/snippets/card.html' with instance=earphone %}  
+  {% endfor %}
+  <div class="col">
+    <a href="/products/category/earphone/">
+      <button type="button" class="btn btn-outline-secondary" style="color: #343A40; margin-top: 150px;">Show More >></button>
+    </a>  </div>
+</div>
 
 {% endblock %}
 

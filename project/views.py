@@ -1,8 +1,43 @@
 from django.contrib.auth import authenticate, login, get_user_model
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render,redirect
-
+from django.views.generic import ListView, DetailView, View
 from .forms import ContactForm
+from  products.models import Product
+from carts.models import Cart
+
+
+class HomePage(ListView):
+    template_name = "home_page.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(HomePage, self).get_context_data(*args, **kwargs)
+        cart_obj, new_obj = Cart.objects.new_or_get(self.request)
+
+        category_laptop = Product.objects.filter(category__name = "laptop")[:3]
+        category_mobile = Product.objects.filter(category__name = "mobile")
+        category_tablet = Product.objects.filter(category__name = "tablet")
+        category_television = Product.objects.filter(category__name = "television")
+        category_watch = Product.objects.filter(category__name = "watch")
+        category_earphone = Product.objects.filter(category__name = "earphone")
+
+
+        context['cart'] = cart_obj
+        context['category_laptop'] = category_laptop
+        context['category_mobile'] = category_mobile
+        context['category_tablet'] = category_tablet
+        context['category_television'] = category_television
+        context['category_watch'] = category_watch
+        context['category_earphone'] = category_earphone
+
+        return context
+
+    def get_queryset(self, *args, **kwargs):
+        request = self.request
+        
+        category = self.kwargs.get('category')
+        return Product.objects.filter(category__name = category)
+
 
 def home_page(request):
     # print(request.session.get("first_name", "Unknown"))

@@ -36,10 +36,10 @@ from addresses.views import (
 from billing.views import payment_method_view, payment_method_createview
 from carts.views import cart_detail_api_view
 
-from .views import home_page, about_page, contact_page
+from .views import home_page, about_page, contact_page, HomePage
 
 urlpatterns = [
-    url(r'^$', home_page, name='home'),
+    url(r'^$', HomePage.as_view(), name='home'),
     url(r'^about/$', about_page, name='about'),
     url(r'^accounts/$', RedirectView.as_view(url='/account')),
     url(r'^account/', include("accounts.urls", namespace='account')),

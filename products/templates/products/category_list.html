@@ -1,44 +1,22 @@
 {% extends "base.html" %}
 
+
 {% block content %}
-    <div class='row'>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-              <div class="card h-100">
-                <img src="" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="text-center btn-block mx-auto">
-                    <button type="button" class="btn btn-dark btn-sm btn-block">Small button</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  {% for obj in object_list %}
+  {% include 'products/snippets/card.html' with instance=obj %}  
+  {% endfor %}
+</div>
+<br><br><br>
 {% endblock %}
 
 
-{% for obj in object_list %}
-<div class='col'>
-{{ forloop.counter }}
-{% include 'products/snippets/card.html' with instance=obj %}  
 
-{% if forloop.counter|divisibleby:3 %}
- </div> 
-  </div>
-    <div class='row'>
-      <div class='col-12'>
-        <hr/>
-      </div>
-{% elif forloop.counter|divisibleby:2 %}
-    </div> </div><div class='row'><div class='col-12'><hr/></div>
-{% else %}
- </div>  
-{% endif %}
+ 
 
 
-{% endfor %}
+
+
+
+
+

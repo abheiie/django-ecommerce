@@ -47,6 +47,10 @@ INSTALLED_APPS = [
     'products',
     'search',
     'tags',
+    'crispy_forms',
+    'bootstrapform'
+    
+
 ]
 
 AUTH_USER_MODEL = 'accounts.User' #changes the built-in user model to ours
@@ -156,7 +160,7 @@ EMAIL_HOST_USER = 'colorles7@gmail.com' # sendgrid
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'manjumami@1234567890@!')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'Python ecommerce <hungrypy@gmail.com>'
+DEFAULT_FROM_EMAIL = 'Team Electro'
 BASE_URL = '127.0.0.1:8000'
 
 
