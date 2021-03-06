@@ -73,6 +73,7 @@ class ProductCategories(models.Model):
 class Product(models.Model):
     category        = models.ForeignKey(ProductCategories, on_delete=models.CASCADE, null=True)
     sku             = models.CharField(max_length=120)
+    gst_percentage  = models.IntegerField(default=18)
     title           = models.CharField(max_length=120)
     slug            = models.SlugField(blank=True, unique=True)
     description     = models.TextField()

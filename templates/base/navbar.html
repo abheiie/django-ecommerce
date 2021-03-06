@@ -54,13 +54,11 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item {% if request.path == account_url %}active{% endif %}" href="{{ account_url }}">Profile</a>
-          <a class="dropdown-item" href="{{ account_url }}">Billing</a>
-
           <a class="dropdown-item" href="/orders/">orders</a>
           <a class='dropdown-item' href='{% url "addresses" %}'>Address</a>
-
-  
-
+          <a class='dropdown-item' href='{% url "account:user-update" %}'>Update Details</a>
+          <a class='dropdown-item' href='{% url "password_change" %}'>Change Password</a>
+          <a class='dropdown-item' href='{% url "billing-payment-method" %}'>Payment Method</a>
           <div class="dropdown-divider"> </div>
           <a class="dropdown-item" href="{{ logout_url }}">Logout</a>
           </div>
