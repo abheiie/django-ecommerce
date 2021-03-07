@@ -9,5 +9,6 @@ STRIPE_PUB_KEY = 'pk_test_51IQeaNH5W6EkSN0dNAhsi0YClBhuxHi3UgZHkXbZdRg8Zpeeo6HUJ
 
 
 
+accounts/password/change reset/
 from django.urls import reverse
 on_delete=models.CASCADE

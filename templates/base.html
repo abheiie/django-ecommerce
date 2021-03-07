@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -10,10 +11,22 @@
         {% block base_head %}{% endblock %}
     </head>
     <body>
-      {% include 'base/navbar.html' with brand_name='eCommerce' %}
+      {% include 'base/navbar.html' with brand_name='Electro' %}
       <div class='container'>
+        {% if messages %}
+      <div class="alert alert-success messages">
+          {% for message in messages %}
+          <span{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+              {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+              {{ message }}<br/>
+          </span>
+          {% endfor %}
+      </div>
+      {% endif %}
       {% block content %}{% endblock %}
     </div>
+    {% include 'base/footer.html' %}
+
 
         {% include 'base/js.html' %}
         {% block javascript %}

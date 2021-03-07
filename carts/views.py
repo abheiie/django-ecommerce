@@ -6,13 +6,18 @@ from django.shortcuts import render, redirect
 from accounts.forms import LoginForm, GuestForm
 from accounts.models import GuestEmail
 
-from addresses.forms import AddressForm
+from addresses.forms import AddressCheckoutForm
 from addresses.models import Address
 
 from billing.models import BillingProfile
 from orders.models import Order
 from products.models import Product
 from .models import Cart
+
+from easy_pdf.rendering import render_to_pdf
+from django.core.mail import send_mail, EmailMessage
+
+
 
 
 import stripe
@@ -31,7 +36,7 @@ def cart_detail_api_view(request):
             "price": x.price
             } 
             for x in cart_obj.products.all()]
-    cart_data  = {"products": products, "subtotal": cart_obj.subtotal, "total": cart_obj.total}
+    cart_data  = {"products": products, "subtotal": cart_obj.subtotal, "gsttotal":cart_obj.gst_total, "total": cart_obj.total}
     return JsonResponse(cart_data)
 
 def cart_home(request):
@@ -76,10 +81,14 @@ def checkout_home(request):
     if cart_created or cart_obj.products.count() == 0:
         return redirect("cart:home")  
     
-    login_form = LoginForm()
-    guest_form = GuestForm()
-    address_form = AddressForm()
+    login_form = LoginForm(request=request)
+    guest_form = GuestForm(request=request)
+    address_form = AddressCheckoutForm()
     billing_address_id = request.session.get("billing_address_id", None)
+
+    shipping_address_required = not cart_obj.is_digital
+
+
     shipping_address_id = request.session.get("shipping_address_id", None)
 
     billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
@@ -105,7 +114,7 @@ def checkout_home(request):
         if is_prepared:
             did_charge, crg_msg = billing_profile.charge(order_obj)
             if did_charge:
-                order_obj.mark_paid()
+                order_obj.mark_paid() # sort a signal for us
                 request.session['cart_items'] = 0
                 del request.session['cart_id']
                 if not billing_profile.user:
@@ -113,6 +122,29 @@ def checkout_home(request):
                     is this the best spot?
                     '''
                     billing_profile.set_cards_inactive()
+
+                # send mail just berfore success of cart
+                user = request.user
+                user_full_name = user.get_full_name()
+                user_email = user.email
+
+                invoice_context = {
+                    "object": order_obj,
+                    "billing_profile": billing_profile,
+                    "address_qs": address_qs,
+                    "user_full_name":user_full_name,
+                    "user_email":user_email
+                }
+
+                post_pdf = render_to_pdf(
+                    'carts/checkout_reciept.html', invoice_context
+                )
+
+                email = EmailMessage(
+                'Purchase innvoice', 'Invoice of purchase that you do on Electro.com', 'Electro', ['asingh.mimit@gmail.com'])
+                email.attach('invoice.pdf', post_pdf, 'application/pdf')
+                email.send()
+
                 return redirect("cart:success")
             else:
                 print(crg_msg)
@@ -126,7 +158,9 @@ def checkout_home(request):
         "address_qs": address_qs,
         "has_card": has_card,
         "publish_key": STRIPE_PUB_KEY,
+        "shipping_address_required": shipping_address_required,
     }
+
     return render(request, "carts/checkout.html", context)
 
 

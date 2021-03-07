@@ -41,13 +41,16 @@ INSTALLED_APPS = [
     #our apps
     'accounts',
     'addresses',
-    'analytics',
     'billing',
     'carts',
     'orders',
     'products',
     'search',
     'tags',
+    'crispy_forms',
+    'bootstrapform'
+    
+
 ]
 
 AUTH_USER_MODEL = 'accounts.User' #changes the built-in user model to ours
@@ -150,6 +153,15 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "static_root
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'colorles7@gmail.com' # sendgrid
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'manjumami@1234567890@!')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Team Electro'
+BASE_URL = '127.0.0.1:8000'
 
 
 

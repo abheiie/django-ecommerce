@@ -1,0 +1,88 @@
+<table class="body-wrap">
+    <tbody><tr>
+        <td></td>
+        <td class="container" width="600">
+            <div class="content">
+                <table class="main" width="100%" cellpadding="0" cellspacing="0">
+                    <tbody><tr>
+                        <td class="content-wrap aligncenter">
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    <tr>
+                                    <td class="content-block">
+                                        <h2>Thanks for using Electro.com</h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="content-block">
+                                        <table class="invoice">
+                                            <tbody>
+                                            <tr>
+                                                <td>{{user_full_name}}<br>Invoice #{{object.id}}<br>{{object.timestamp}}</td>
+                                            </tr>
+                                            <hr>
+                                            <tr>
+                                                <td>
+                                                    <table class="invoice-items" cellpadding="0" cellspacing="0">
+                                                        <tbody>
+
+                                                        {% for product in object.cart.products.all %}
+                                                        <tr>
+                                                            <td>{{ product }}</td>
+                                                            <td class="alignright">{{product.price}}</td>
+                                                        </tr>
+                                                        {% if not forloop.last %}
+                                                         {% endif %}
+                                                        {% endfor %}
+
+                                                        <tr>
+                                                            <td>Subtotal</td>
+                                                            <td class="alignright">{{object.cart.subtotal}}</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>GST</td>
+                                                            <td class="alignright">{{object.cart.gst_total}}</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>Shipping Charge</td>
+                                                            <td class="alignright">{{ object.shipping_total }}</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>Total</td>
+                                                            <td class="alignright">{{ object.total }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="content-block">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="content-block">
+                                        Electro.com
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                        </td>
+                    </tr>
+                </tbody></table>
+                <div class="footer">
+                    <table width="100%">
+                        <tbody><tr>
+                            <td class="aligncenter content-block">Questions? Email <a href="mailto:">support@electro.com</a></td>
+                        </tr>
+                    </tbody></table>
+                </div></div>
+        </td>
+        <td></td>
+    </tr>
+</tbody></table>

@@ -5,8 +5,6 @@ from django.urls import reverse
 from accounts.models import GuestEmail
 User = settings.AUTH_USER_MODEL
 
-# abc@teamcfe.com -->> 1000000 billing profiles
-# user abc@teamcfe.com -- 1 billing profile
 
 import stripe
 stripe.api_key = "sk_test_cu1lQmcg1OLffhLvYrSCp5XE"
