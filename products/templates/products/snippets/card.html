@@ -6,6 +6,7 @@
       <a href="{{ instance.get_absolute_url }}"><img class="card-img-top" src="{{ instance.image.url }}" alt="{{ instance.title}} logo"></a>
       {% endif %}
       <div class="card-body">
+        <h5 class="card-title">₹ {{ instance.price }}</h5>
         <h6 class="card-title" style="color:#343A40;"><b>{{ instance.title }}</b></h4>
         <div class="card-text" style="font-size: 13px; color: #343A40;">{{ instance.description|linebreaks|truncatewords:14 }}</div>
         {% include 'products/snippets/update-cart.html' with product=instance cart=cart %}

@@ -14,6 +14,11 @@ from orders.models import Order
 from products.models import Product
 from .models import Cart
 
+from easy_pdf.rendering import render_to_pdf
+from django.core.mail import send_mail, EmailMessage
+
+
+
 
 import stripe
 STRIPE_SECRET_KEY = getattr(settings, "STRIPE_SECRET_KEY", "sk_test_cu1lQmcg1OLffhLvYrSCp5XE")
@@ -117,6 +122,29 @@ def checkout_home(request):
                     is this the best spot?
                     '''
                     billing_profile.set_cards_inactive()
+
+                # send mail just berfore success of cart
+                user = request.user
+                user_full_name = user.get_full_name()
+                user_email = user.email
+
+                invoice_context = {
+                    "object": order_obj,
+                    "billing_profile": billing_profile,
+                    "address_qs": address_qs,
+                    "user_full_name":user_full_name,
+                    "user_email":user_email
+                }
+
+                post_pdf = render_to_pdf(
+                    'carts/checkout_reciept.html', invoice_context
+                )
+
+                email = EmailMessage(
+                'Purchase innvoice', 'Invoice of purchase that you do on Electro.com', 'Electro', ['asingh.mimit@gmail.com'])
+                email.attach('invoice.pdf', post_pdf, 'application/pdf')
+                email.send()
+
                 return redirect("cart:success")
             else:
                 print(crg_msg)
@@ -132,6 +160,7 @@ def checkout_home(request):
         "publish_key": STRIPE_PUB_KEY,
         "shipping_address_required": shipping_address_required,
     }
+
     return render(request, "carts/checkout.html", context)
 
 
