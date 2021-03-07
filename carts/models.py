@@ -60,28 +60,57 @@ def m2m_changed_cart_receiver(sender, instance, action, *args, **kwargs):
     if action == 'post_add' or action == 'post_remove' or action == 'post_clear':
         products = instance.products.all()
         total = 0
+        sub_total = 0
+        gst_total = 0
         for x in products:
-            total += x.price
-        if instance.subtotal != total:
-            instance.subtotal = total
+            gst = (x.price//100)*(x.gst_percentage)
+            sub_total = sub_total + x.price
+            total = total + gst + x.price
+            gst_total = gst_total + gst
+    
+
+            instance.total = total
             instance.save()
+
+            instance.subtotal = sub_total
+            instance.save()
+
+            instance.gst_total = gst_total
+            instance.save()
+
+            print("subtotal", sub_total)
+            print("total", total)
+            print("gst total", gst_total)
+
+        # if instance.subtotal != total:
+        #     instance.subtotal = total
+        #     instance.save()
+
+
+# def m2m_changed_cart_receiver(sender, instance, action, *args, **kwargs):
+#     if action == 'post_add' or action == 'post_remove' or action == 'post_clear':
+#         products = instance.products.all()
+#         total = 0
+#         sub_total = 0
+#         gst_total = 0
+#         for x in products:
+#             total += x.price
+#         if instance.subtotal != total:
+#             instance.subtotal = total
+#             instance.save()
 
 m2m_changed.connect(m2m_changed_cart_receiver, sender=Cart.products.through)
 
 
 
 
-def pre_save_cart_receiver(sender, instance, *args, **kwargs):
-    if instance.subtotal > 0:
-        instance.total = Decimal(instance.subtotal) * Decimal(1.08) # 8% tax
-    else:
-        instance.total = 0.00
+# def pre_save_cart_receiver(sender, instance, *args, **kwargs):
+#     if instance.subtotal > 0:
+#         instance.total = Decimal(instance.subtotal) * Decimal(1.08) # 8% tax
+#     else:
+#         instance.total = 0.00
 
-pre_save.connect(pre_save_cart_receiver, sender=Cart)
-
-
-
-
+# pre_save.connect(pre_save_cart_receiver, sender=Cart)
 
 
 

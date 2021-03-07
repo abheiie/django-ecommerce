@@ -33,7 +33,11 @@
     {% endfor %}
     <tr>
       <td colspan="2"></td>
-      <td><b>Subtotal</b> ₹<span class='cart-subtotal'>{{ cart.subtotal }}</span></td>
+      <td><b>Subtotal </b> ₹<span class='cart-subtotal'>{{ cart.subtotal }}</span></td>
+    </tr>
+    <tr>
+      <td colspan="2"></td>
+      <td><b>GST</b> ₹<span class='gst-total'>{{ cart.gst_total }}</span></td>
     </tr>
     <tr>
       <td colspan="2"></td>

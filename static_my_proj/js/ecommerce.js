@@ -176,6 +176,7 @@ $(document).ready(function(){
             })
             
             cartBody.find(".cart-subtotal").text(data.subtotal)
+            cartBody.find(".gst-total").text(data.gsttotal)
             cartBody.find(".cart-total").text(data.total)
         } else {
           window.location.href = currentUrl
