@@ -8,6 +8,9 @@ from carts.models import Cart
 
 
 class HomePage(ListView):
+    """
+    view for main home page
+    """
     template_name = "home_page.html"
 
     def get_context_data(self, *args, **kwargs):

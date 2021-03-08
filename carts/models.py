@@ -9,6 +9,9 @@ from products.models import Product
 User = settings.AUTH_USER_MODEL
 
 class CartManager(models.Manager):
+    """
+    model manager for cart table
+    """
     def new_or_get(self, request):
         cart_id = request.session.get("cart_id", None)
         qs = self.get_queryset().filter(id=cart_id)
@@ -32,6 +35,9 @@ class CartManager(models.Manager):
         return self.model.objects.create(user=user_obj)
 
 class Cart(models.Model):
+    """
+    cart model
+    """
     user        = models.ForeignKey(User, null=True, blank=True,  on_delete = models.CASCADE)
     products    = models.ManyToManyField(Product, blank=True)
     gst_total   = models.DecimalField(default=0.00, max_digits=100, decimal_places=2)
@@ -57,6 +63,10 @@ class Cart(models.Model):
 
 
 def m2m_changed_cart_receiver(sender, instance, action, *args, **kwargs):
+    """
+    signal for whenver user add or remove product from cart, this will run so that we can get
+    the new cart total
+    """
     if action == 'post_add' or action == 'post_remove' or action == 'post_clear':
         products = instance.products.all()
         total = 0

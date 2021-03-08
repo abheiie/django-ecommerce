@@ -24,6 +24,9 @@ from .signals import user_logged_in
 
 #LoginRequiredMixin,
 class AccountHomeView(LoginRequiredMixin, DetailView):
+    '''
+    account home view
+    '''
     template_name = 'accounts/home.html'
     def get_object(self):
         return self.request.user
@@ -31,6 +34,9 @@ class AccountHomeView(LoginRequiredMixin, DetailView):
 
 
 class AccountEmailActivateView(FormMixin, View):
+    '''
+    view for email activation
+    '''
     success_url = '/login/'
     form_class = ReactivateEmailForm
     key = None
@@ -81,6 +87,9 @@ class AccountEmailActivateView(FormMixin, View):
 
 
 class GuestRegisterView(NextUrlMixin,  RequestFormAttachMixin, CreateView):
+    """
+    guest register view
+    """
     form_class = GuestForm
     default_next = '/register/'
 
@@ -92,6 +101,9 @@ class GuestRegisterView(NextUrlMixin,  RequestFormAttachMixin, CreateView):
 
 
 class LoginView(NextUrlMixin, RequestFormAttachMixin, FormView):
+    """
+    login view
+    """
     form_class = LoginForm
     success_url = '/'
     template_name = 'accounts/login.html'
@@ -105,6 +117,9 @@ class LoginView(NextUrlMixin, RequestFormAttachMixin, FormView):
 
 
 class RegisterView(CreateView):
+    """
+    register view
+    """
     form_class = RegisterForm
     template_name = 'accounts/register.html'
     success_url = '/login/'
@@ -113,6 +128,9 @@ class RegisterView(CreateView):
 
 
 class UserDetailUpdateView(LoginRequiredMixin, UpdateView):
+    """
+    user detail update view
+    """
     form_class = UserDetailChangeForm
     template_name = 'accounts/detail-update-view.html'
 

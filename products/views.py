@@ -13,6 +13,9 @@ from .models import Product
 
 
 class ProductFeaturedListView(ListView):
+    """
+    view for getting list of featured products
+    """
     template_name = "products/list.html"
 
     def get_queryset(self, *args, **kwargs):
@@ -22,6 +25,9 @@ class ProductFeaturedListView(ListView):
 
 
 def product_category(request, category):
+    """
+    view to get list of product by category, function based
+    """
     product_by_category_qs = Product.objects.filter(category__name = category)
 
     context = {
@@ -31,6 +37,9 @@ def product_category(request, category):
     return render(request, "products/category_list.html", context)
 
 class ProductCategoryListView(ListView):
+    """
+    view to get list of product by category, class based
+    """
     template_name = "products/category_list.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -220,6 +229,9 @@ from orders.models import *
 
 
 def product_detail_view(request, pk=None, *args, **kwargs):
+    """
+    view for product detail view
+    """
     # instance = Product.objects.get(pk=pk, featured=True) #id
     # instance = get_object_or_404(Product, pk=pk, featured=True)
     # try:

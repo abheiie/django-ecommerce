@@ -76,6 +76,9 @@ def cart_update(request):
 
 
 def checkout_home(request):
+    """
+    final checkout view, incudes checkout and sending invoice through mail
+    """
     cart_obj, cart_created = Cart.objects.new_or_get(request)
     order_obj = None
     if cart_created or cart_obj.products.count() == 0:
@@ -170,6 +173,9 @@ def checkout_home(request):
 
 
 def checkout_done_view(request):
+    """
+    checkout succcessful view
+    """
     return render(request, "carts/checkout-done.html", {})
 
 
