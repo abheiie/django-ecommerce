@@ -8,12 +8,20 @@ from .models import Order, ProductPurchase
 
 
 class OrderListView(LoginRequiredMixin, ListView):
+    """
+    view to get the list of orders
+    """
 
     def get_queryset(self):
         return Order.objects.by_request(self.request).not_created()
 
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
+
+    """
+    view to get the detail of orders
+    
+    """
     
     def get_object(self):
         #return Order.objects.get(id=self.kwargs.get('id'))

@@ -3,6 +3,9 @@ from django.views.generic import ListView
 from products.models import Product
 
 class SearchProductView(ListView):
+    """
+    search view, it will get query and will return list of products
+    """
     template_name = "search/view.html"
 
     def get_context_data(self, *args, **kwargs):

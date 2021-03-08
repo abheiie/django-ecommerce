@@ -11,6 +11,9 @@ from .models import Address
 
 
 class AddressListView(LoginRequiredMixin, ListView):
+    """
+    view for list of addresses
+    """
     template_name = 'addresses/list.html'
 
     def get_queryset(self):
@@ -21,6 +24,9 @@ class AddressListView(LoginRequiredMixin, ListView):
 
 
 class AddressUpdateView(LoginRequiredMixin, UpdateView):
+    """
+    view for updating address view
+    """
     template_name = 'addresses/update.html'
     form_class = AddressForm
     success_url = '/addresses'
@@ -32,6 +38,9 @@ class AddressUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class AddressCreateView(LoginRequiredMixin, CreateView):
+    """
+    view for creating address
+    """
     template_name = 'addresses/update.html'
     form_class = AddressForm
     success_url = '/addresses'
@@ -54,6 +63,9 @@ class AddressCreateView(LoginRequiredMixin, CreateView):
 
 
 def checkout_address_create_view(request):
+    """
+    view for adding new address using form during checkout
+    """
     form = AddressCheckoutForm(request.POST or None)
     context = {
         "form": form
